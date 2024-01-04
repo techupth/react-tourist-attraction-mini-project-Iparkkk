@@ -1,8 +1,11 @@
+/** @jsxImportSource @emotion/react */
+import { css, jsx } from "@emotion/react";
 import "./App.css";
 import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import TripGuide from "../components/TripGuide";
+
 function App() {
   const [listTripGuide, setListTripGuide] = useState([]);
   const [searchText, setSearchText] = useState("");
@@ -25,27 +28,83 @@ function App() {
 
   return (
     <div className="App">
-      <h1>เที่ยวไหนดี</h1>
-      <p>ค้นหาที่เที่ยว</p>
-      <input
-        onChange={hadleSearch}
-        placeholder="หาที่เที่ยวแล้วไปกัน .."
-        value={searchText}
-      ></input>
-      <hr></hr>
-      {listTripGuide.map((item) => {
-        return (
-          <TripGuide
-            key={item.eid}
-            extraPhoto={item.photos.slice(0, 1)}
-            title={item.title}
-            description={item.description}
-            url={item.url}
-            tag={item.tags}
-            photos={item.photos.slice(1)}
-          />
-        );
-      })}
+      <div
+        className="header"
+        css={css`
+          font-family: "Sarabun";
+          display: flex;
+          flex-direction: column;
+        `}
+      >
+        <h1
+          css={css`
+            color: #318ce7;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+          `}
+        >
+          เที่ยวไหนดี
+        </h1>
+        <p
+          css={css`
+            display: flex;
+            width: 80vw;
+            margin-left: 8vw;
+          `}
+        >
+          ค้นหาที่เที่ยว
+        </p>
+        <div
+          className="header-search-block"
+          css={css`
+            display: flex;
+            justify-content: center;
+          `}
+        >
+          <input
+            onChange={hadleSearch}
+            placeholder="หาที่เที่ยวแล้วไปกัน .."
+            value={searchText}
+            css={css`
+              border: none;
+              &:focus {
+                outline: 0px;
+              }
+            `}
+          ></input>
+        </div>
+
+        <hr
+          css={css`
+            width: 80vw;
+
+            color: black;
+          `}
+        ></hr>
+      </div>
+      <section
+        css={css`
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        `}
+      >
+        {listTripGuide.map((item) => {
+          return (
+            <TripGuide
+              key={item.eid}
+              extraPhoto={item.photos.slice(0, 1)}
+              title={item.title}
+              description={item.description}
+              url={item.url}
+              tag={item.tags}
+              photos={item.photos.slice(1)}
+            />
+          );
+        })}
+      </section>
     </div>
   );
 }
